@@ -15,9 +15,10 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'thin' 
+gem 'thin' #server
 gem 'quiet_assets' #fix assets msgs
 gem 'bootstrap-sass', '~> 2.3.0.0'
+gem 'devise' # authentication solution
 
 group :production do
 	gem 'pg'
