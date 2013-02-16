@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Priority</th>
+    <th>Dute date</th>    
+  </tr>
+
+<% @tasks.each do |task| %>
+  <tr>
+    <td><%= task.name %></td>
+    <td><%= task.priority %></td>
+    <td><%= task.dute_date %></td>
+    
+  </tr>
+<% end %>
+</table>
