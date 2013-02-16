@@ -42,7 +42,7 @@ $(function(){
 		if (!answer)             
 			return;
 		$.post(this.href, { _method: 'delete' });
-		$(this).parent().parent().fadeOut(function('slow'){
+		$(this).parent().parent().fadeOut(function(){
 			$(this).remove();	
 		});
 	});
