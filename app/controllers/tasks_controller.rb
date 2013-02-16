@@ -14,6 +14,8 @@ class TasksController < ApplicationController
 
 		@task = Task.create!(params[:task])
 		current_user.tasks << @task
+
+		puts "EXITOOOOOOOOO" if @task.save 
 		render json: @task		
 	end		
 	

@@ -20,7 +20,7 @@
 $(function(){
 
 	/**
-	* Initializer for datepicker for due_date and modal for the form
+	* Initializer for datepicker for due_date and modal for the task form
 	**/
 
 	$('#task_due_date').datepicker(
@@ -45,29 +45,6 @@ $(function(){
 		$(this).parent().parent().remove();
 	});
 
-	/**
-	* New Task action
-	*/
-
-	$("#new_task").submit(function(e) {
-		
-		e.preventDefault();
-		task = {
-			name : $("#task_name").val(), 
-			priority: $("#task_priority").val(), 
-			due_date: $("#task_due_date").val()
-		}
-		url = $(this).attr( 'action' );
-
-		$.post(url,{ task: task }, function(data) {			
-				
-			edit = "<a href='/users/"+data.user_id+"/tasks/"+data.id+"/edit' class='edit'><img alt='Edit' height='20' src='/assets/edit.png' width='20'></a>"	
-			destroy = "<a href='/users/"+data.user_id+"/tasks/"+data.id+"' class='delete'><img alt='Destroy' height='20' src='/assets/destroy.png' width='20'></a>"
-			$('#results').append("<tr><td>"+data.name+"</td><td>"+data.priority+"</td><td>"+data.due_date+"</td><td>"+edit+"  "+destroy+"</td></tr>");
-		});
-		$('#myModal').modal('hide');
-
-	});
 
 
 	/**
@@ -85,7 +62,7 @@ $(function(){
 			$("#task_due_date").val(data.due_date);
 			$(".save").val("Update");			
 			$('#new_update').text("Update")
-			$("#act").val("update");	
+				
 			
 
 		});
@@ -98,9 +75,48 @@ $(function(){
 		$('#new_task')[0].reset(); // clean the form to enter a new TASK
 		$(".save").val("Create"); //  return to original name
 		$('#new_update').text("Create")
-
-		$("#act").val("new");	
+		
+		
 		
 	});
 
+	$("#new_task").submit(function(e){
+    e.preventDefault();
+  });
+
+  $('.save').click(function(e){
+  	save();
+
+  });
+
+
+
 });
+
+function save () {
+
+		var form =$("#new_task");
+
+		my_task = {
+			name : $("#task_name").val(), 
+			priority: $("#task_priority").val(), 
+			due_date: $("#task_due_date").val()
+		}
+		url = $(form).attr( 'action' );
+		type="POST"
+
+		console.log(my_task);
+
+		$.ajax({type: type,
+					 url: url,
+					 data: {task: my_task},
+					 success: function(data) {			
+						
+
+			edit = "<a href='/users/"+data.user_id+"/tasks/"+data.id+"/edit' class='edit'><img alt='Edit' height='20' src='/assets/edit.png' width='20'></a>"	
+			destroy = "<a href='/users/"+data.user_id+"/tasks/"+data.id+"' class='delete'><img alt='Destroy' height='20' src='/assets/destroy.png' width='20'></a>"
+			$('#results').append("<tr><td>"+data.name+"</td><td>"+data.priority+"</td><td>"+data.due_date+"</td><td>"+edit+"  "+destroy+"</td></tr>");
+		}});
+		$('#myModal').modal('hide');
+	
+}
