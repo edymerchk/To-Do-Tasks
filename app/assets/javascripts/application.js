@@ -36,14 +36,16 @@ $(function(){
 	* Delete Action
 	*/
 
-	$('.delete').click(function(e){
-		e.preventDefault();		
+	 $(document).on( "click", ".delete", function(e){
+	 	e.preventDefault();		
 		var answer = confirm("Are you sure?")
 		if (!answer)             
 			return;
 		$.post(this.href, { _method: 'delete' });
 		$(this).parent().parent().remove();
-	});
+
+	 });
+
 
 
 
@@ -52,7 +54,9 @@ $(function(){
 	* Load the data and show the modal form
 	*/
 
-	$('.edit').click(function(e){
+	 
+
+	$(document).on( "click", ".edit", function(e){
 		e.preventDefault();		
 
 		$.get(this.href, function(data){

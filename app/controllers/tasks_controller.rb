@@ -10,13 +10,10 @@ class TasksController < ApplicationController
 	def create
 		puts "******#{params}"
 
-
-
 		@task = Task.create!(params[:task])
 		current_user.tasks << @task
-
-		puts "EXITOOOOOOOOO" if @task.save 
 		render json: @task		
+
 	end		
 	
 	def get_tasks
@@ -30,6 +27,7 @@ class TasksController < ApplicationController
 	end
 
 	def update
+		puts "ENTRO POR EL UPDATE"
 		@task = Task.find(params[:id])		
 		# here update
 	end
