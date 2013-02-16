@@ -42,8 +42,9 @@ $(function(){
 		if (!answer)             
 			return;
 		$.post(this.href, { _method: 'delete' });
-		$(this).parent().parent().remove();
-
+		$(this).parent().parent().fadeOut(function('slow'){
+			$(this).remove();	
+		});
 	});
 
 
@@ -128,16 +129,20 @@ function save () {
 	$('#myModal').modal('hide');
 	
 }
-
+/**
+* Add new Record
+*/
 function addRecord (data){	
 	$('#results').append(CreateTR(data));
 }
 
+/**
+* Update a Record
+*/
 function updateRecord (data) {
-	$('tr[data-id='+data.id+']').hide();
-	$('tr[data-id='+data.id+']').replaceWith(CreateTR(data));
-	$('tr[data-id='+data.id+']').show();
-	
+	$('tr[data-id='+data.id+']').fadeOut(function(){
+		$('tr[data-id='+data.id+']').replaceWith(CreateTR(data));
+	});	
 }
 
 /**
