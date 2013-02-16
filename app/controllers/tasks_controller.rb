@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
 	respond_to :html, :json, :js 
+	before_filter :authenticate_user!
 	before_filter :get_tasks
 	
 	def index			
@@ -8,21 +9,11 @@ class TasksController < ApplicationController
 
 	def create
 
-
-		if params[:id].nil?
-			puts "Nuevo"
-			#@task = Task.new				
-		else
-			puts "actualizcion"
-			#@task = Task.find(params[:id])
-		end	
-
-		@task = Task.new(params[:task])
+		@task = Task.create!(params[:task])
 		current_user.tasks << @task
-		render json: @task
-		
-	end
-
+		render json: @task		
+	end		
+	
 	def get_tasks
 		@tasks = current_user.tasks		
 	end

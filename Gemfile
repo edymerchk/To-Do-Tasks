@@ -20,6 +20,7 @@ gem 'quiet_assets' #fix assets msgs
 gem 'bootstrap-sass', '~> 2.3.0.0'
 gem 'devise' # authentication solution
 gem 'simple_form' # forms made easy
+gem 'jquery-ui-rails'
 
 group :production do
 	gem 'pg'

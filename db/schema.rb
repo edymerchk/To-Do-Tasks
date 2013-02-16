@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20130216000430) do
 
   create_table "tasks", :force => true do |t|
     t.string   "name"
-    t.integer  "priority"
+    t.string   "priority"
     t.date     "due_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
