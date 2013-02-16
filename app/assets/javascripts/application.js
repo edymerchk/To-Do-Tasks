@@ -85,6 +85,7 @@ $(function(){
 			$("#task_due_date").val(data.due_date);
 			$(".save").val("Update");			
 			$('#new_update').text("Update")
+			$("#act").val("update");	
 			
 
 		});
@@ -97,6 +98,9 @@ $(function(){
 		$('#new_task')[0].reset(); // clean the form to enter a new TASK
 		$(".save").val("Create"); //  return to original name
 		$('#new_update').text("Create")
+
+		$("#act").val("new");	
+		
 	});
 
 });

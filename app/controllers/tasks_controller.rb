@@ -8,6 +8,9 @@ class TasksController < ApplicationController
 	end
 
 	def create
+		puts "******#{params}"
+
+
 
 		@task = Task.create!(params[:task])
 		current_user.tasks << @task
@@ -26,6 +29,7 @@ class TasksController < ApplicationController
 
 	def update
 		@task = Task.find(params[:id])		
+		# here update
 	end
 
 	def edit
