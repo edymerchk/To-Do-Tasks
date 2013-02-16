@@ -8,8 +8,7 @@ class TasksController < ApplicationController
 	end
 
 	def create
-		puts "******#{params}"
-
+		
 		@task = Task.create!(params[:task])
 		current_user.tasks << @task
 		render json: @task		
@@ -27,9 +26,12 @@ class TasksController < ApplicationController
 	end
 
 	def update
-		puts "ENTRO POR EL UPDATE"
-		@task = Task.find(params[:id])		
-		# here update
+		
+		puts "******#{params}".red
+		@task = Task.find(params[:id])	
+		@task.update_attributes(params[:task])	
+		render json: @task
+		
 	end
 
 	def edit

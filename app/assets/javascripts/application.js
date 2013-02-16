@@ -36,15 +36,15 @@ $(function(){
 	* Delete Action
 	*/
 
-	 $(document).on( "click", ".delete", function(e){
-	 	e.preventDefault();		
+	$(document).on( "click", ".delete", function(e){
+		e.preventDefault();		
 		var answer = confirm("Are you sure?")
 		if (!answer)             
 			return;
 		$.post(this.href, { _method: 'delete' });
 		$(this).parent().parent().remove();
 
-	 });
+	});
 
 
 
@@ -54,44 +54,42 @@ $(function(){
 	* Load the data and show the modal form
 	*/
 
-	 
+
 
 	$(document).on( "click", ".edit", function(e){
 		e.preventDefault();		
 
 		$.get(this.href, function(data){
-			console.log(data.name);
+			
 			$("#task_name").val(data.name);
 			$("#task_priority").val(data.priority);
 			$("#task_due_date").val(data.due_date);
 			$(".save").val("Update");			
 			$('#new_update').text("Update")
-				
-			
+			$(".save").attr("id", data.id);			
 
 		});
 
-		$('#myModal').modal('show')
+		$('#myModal').modal('show') // show modal form to edit Task
 
 	});
 
 	$('#new_task_btn').click(function(e){		
-		$('#new_task')[0].reset(); // clean the form to enter a new TASK
+		$('#new_task')[0].reset(); // clean the form to enter a new Task
 		$(".save").val("Create"); //  return to original name
 		$('#new_update').text("Create")
-		
+		$(".save").removeAttr("id") // remove id of last edit if any
 		
 		
 	});
 
 	$("#new_task").submit(function(e){
-    e.preventDefault();
-  });
+		e.preventDefault();
+	});
 
-  $('.save').click(function(e){
-  	save();
-
-  });
+	$('.save').click(function(e){
+		save();
+	});
 
 
 
@@ -99,28 +97,58 @@ $(function(){
 
 function save () {
 
-		var form =$("#new_task");
+	type="POST"
+	var form =$("#new_task");
+	url = $(form).attr( 'action' );
 
-		my_task = {
-			name : $("#task_name").val(), 
-			priority: $("#task_priority").val(), 
-			due_date: $("#task_due_date").val()
-		}
-		url = $(form).attr( 'action' );
-		type="POST"
+	if($('#new_update').text()!="Create"){
+		type="PUT"
+		id = $(".save").attr("id")
+		url = url +"/"+ id
+	}		
 
-		console.log(my_task);
+	my_task = {
+		name : $("#task_name").val(), 
+		priority: $("#task_priority").val(), 
+		due_date: $("#task_due_date").val()
+	}
 
-		$.ajax({type: type,
-					 url: url,
-					 data: {task: my_task},
-					 success: function(data) {			
-						
 
-			edit = "<a href='/users/"+data.user_id+"/tasks/"+data.id+"/edit' class='edit'><img alt='Edit' height='20' src='/assets/edit.png' width='20'></a>"	
-			destroy = "<a href='/users/"+data.user_id+"/tasks/"+data.id+"' class='delete'><img alt='Destroy' height='20' src='/assets/destroy.png' width='20'></a>"
-			$('#results').append("<tr><td>"+data.name+"</td><td>"+data.priority+"</td><td>"+data.due_date+"</td><td>"+edit+"  "+destroy+"</td></tr>");
+	$.ajax({type: type,
+		url: url,
+		data: {task: my_task},
+		success: function(data) {			
+			if(type=="POST")
+				addRecord (data);
+			else				
+				updateRecord (data);
+			
+
 		}});
-		$('#myModal').modal('hide');
+	$('#myModal').modal('hide');
 	
+}
+
+function addRecord (data){	
+	$('#results').append(CreateTR(data));
+}
+
+function updateRecord (data) {
+	$('tr[data-id='+data.id+']').hide();
+	$('tr[data-id='+data.id+']').replaceWith(CreateTR(data));
+	$('tr[data-id='+data.id+']').show();
+	
+}
+
+/**
+* Create a TR element to update a existing record or append new record
+*/
+function CreateTR (data) {
+	name = "<td>"+data.name+"</td>";
+	priority = "<td>"+data.priority+"</td>";
+	due_date = "<td>"+data.due_date+"</td>";
+	edit = "<td><a href='/users/"+data.user_id+"/tasks/"+data.id+"/edit' class='edit'><img alt='Edit' height='20' src='/assets/edit.png' width='20'></a> ";
+	destroy = "<a href='/users/"+data.user_id+"/tasks/"+data.id+"' class='delete'><img alt='Destroy' height='20' src='/assets/destroy.png' width='20'></a></td>";
+	tr = "<tr data-id="+data.id+">"+name+priority+due_date+edit+destroy+"</tr>"
+	return tr;	
 }
