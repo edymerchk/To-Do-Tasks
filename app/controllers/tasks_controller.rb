@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 	end		
 	
 	def get_tasks
-		@tasks = current_user.tasks		
+		@tasks = current_user.tasks.sort_by{|t| t.due_date}		
 	end
 
 	def destroy
@@ -27,7 +27,6 @@ class TasksController < ApplicationController
 
 	def update
 		
-		puts "******#{params}".red
 		@task = Task.find(params[:id])	
 		@task.update_attributes(params[:task])	
 		render json: @task

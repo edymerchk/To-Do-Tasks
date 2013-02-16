@@ -86,13 +86,8 @@ $(function(){
 
 	$("#new_task").submit(function(e){
 		e.preventDefault();
-	});
-
-	$('.save').click(function(e){
 		save();
 	});
-
-
 
 });
 
