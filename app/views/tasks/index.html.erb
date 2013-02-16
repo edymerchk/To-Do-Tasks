@@ -1,16 +1,25 @@
-<table>
+<table id="results">
   <tr>
     <th>Name</th>
     <th>Priority</th>
     <th>Dute date</th>    
+    <th></th>
   </tr>
 
-<% @tasks.each do |task| %>
+  <% @tasks.each do |task| %>
   <tr>
     <td><%= task.name %></td>
     <td><%= task.priority %></td>
-    <td><%= task.dute_date %></td>
+    <td><%= task.due_date %></td>
+    <td>
+      <%= link_to 'Edit', edit_user_task_path(current_user,task), :class =>"edit" %>
+      <%= link_to 'Destroy', user_task_path(current_user,task), :class =>"delete" %>
+    </td>
+
     
   </tr>
-<% end %>
+  <% end %>
 </table>
+
+
+<%= render 'new' %>
