@@ -1,0 +1,11 @@
+	<script id="tr-template" type="text/x-handlebars-template">
+	<tr data-id={{id}}>
+    <td>{{name}}</td>
+    <td>{{priority}}</td>
+    <td>{{due_date}}</td>
+    <td>  
+      <a href="/users/{{user_id}}/tasks/{{id}}/edit" class="edit"><img alt="Edit" height="20" src="/assets/edit.png" width="20"></a>
+      <a href="/users/{{user_id}}/tasks/{{id}}" class="delete"><img alt="Destroy" height="20" src="/assets/destroy.png" width="20"></a>
+    </td>    
+  </tr>
+  </script>

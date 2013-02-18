@@ -18,6 +18,7 @@ class TasksController < ApplicationController
 
 	def destroy
 		@task.destroy		
+		render json: @task	
 	end
 
 	def update

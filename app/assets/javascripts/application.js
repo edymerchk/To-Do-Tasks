@@ -91,6 +91,10 @@ $(function(){
 
 });
 
+/*
+*Function to Save a task using ajax 
+*/
+
 function save () {
 
 	type="POST"
@@ -141,14 +145,16 @@ function updateRecord (data) {
 }
 
 /**
-* Create a TR element to update a existing record or append new record
+* Create a TR element based in a template 
+* to update a existing record or append new record
+* using handlebars.js
 */
+
 function CreateTR (data) {
-	name = "<td>"+data.name+"</td>";
-	priority = "<td>"+data.priority+"</td>";
-	due_date = "<td>"+data.due_date+"</td>";
-	edit = "<td><a href='/users/"+data.user_id+"/tasks/"+data.id+"/edit' class='edit'><img alt='Edit' height='20' src='/assets/edit.png' width='20'></a> ";
-	destroy = "<a href='/users/"+data.user_id+"/tasks/"+data.id+"' class='delete'><img alt='Destroy' height='20' src='/assets/destroy.png' width='20'></a></td>";
-	tr = "<tr data-id="+data.id+">"+name+priority+due_date+edit+destroy+"</tr>"
-	return tr;	
+	
+	var source   = $("#tr-template").html();
+	var template = Handlebars.compile(source);	
+	var tr    = template(data);
+	return tr
+
 }
