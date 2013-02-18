@@ -15,7 +15,11 @@ rails s
 ### Try it
 Having everything ready and running, go to `http://localhost:3000` and enjoy! :)
 
+or use online version deployed on [Heroku](http://todo-linden.herokuapp.com/) 
+
+
 ###  Author
 
 This was written by Luis Edimerchk <edyhack@gmail.com>
+
 
