@@ -34,5 +34,15 @@ RSpec.configure do |config|
   # Include Factory Girl syntax to simplify calls to factories
   config.include FactoryGirl::Syntax::Methods
       # Include custom macros here
-  config.include LoginMacros  
+  config.include LoginMacros
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end  
 end
