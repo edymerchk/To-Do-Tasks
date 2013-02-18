@@ -136,7 +136,7 @@ function addRecord (data){
 */
 function updateRecord (data) {
 	$('tr[data-id='+data.id+']').fadeOut(function(){
-		$('tr[data-id='+data.id+']').replaceWith(CreateTR(data));
+		$(this).replaceWith(CreateTR(data));
 	});	
 }
 
