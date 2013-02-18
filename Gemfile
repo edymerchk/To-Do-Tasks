@@ -22,6 +22,7 @@ gem 'devise' # authentication solution
 gem 'simple_form' # forms made easy
 gem 'jquery-ui-rails'
 gem 'colorize' #colors for debug!!
+gem "faker", "~> 1.0.1"
 
 group :production do
 	gem 'pg'
@@ -36,8 +37,7 @@ group :development, :test do
 end
 
 
-group :test do
-	gem "faker", "~> 1.0.1"
+group :test do	
 	gem "capybara", "~> 1.1.2"
 	gem "database_cleaner", "~> 0.7.2"
 	gem "launchy", "~> 2.1.0"
